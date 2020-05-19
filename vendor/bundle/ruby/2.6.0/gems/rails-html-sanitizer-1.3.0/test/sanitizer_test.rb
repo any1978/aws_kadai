@@ -270,7 +270,7 @@ class SanitizersTest < Minitest::Test
   end
 
   def test_scrub_style_if_style_attribute_option_is_passed
-    input = '<p style="color: #000; background-image: url(http://www.ragingplatypus.com/i/cam-full.jpg);"></p>'
+    input = '<p style="color: #000; background-image: image-url(http://www.ragingplatypus.com/i/cam-full.jpg);"></p>'
     assert_equal '<p style="color: #000;"></p>', safe_list_sanitize(input, attributes: %w(style))
   end
 
@@ -380,7 +380,7 @@ class SanitizersTest < Minitest::Test
   end
 
   def test_should_sanitize_illegal_style_properties
-    raw      = %(display:block; position:absolute; left:0; top:0; width:100%; height:100%; z-index:1; background-color:black; background-image:url(http://www.ragingplatypus.com/i/cam-full.jpg); background-x:center; background-y:center; background-repeat:repeat;)
+    raw      = %(display:block; position:absolute; left:0; top:0; width:100%; height:100%; z-index:1; background-color:black; background-image:image-url(http://www.ragingplatypus.com/i/cam-full.jpg); background-x:center; background-y:center; background-repeat:repeat;)
     expected = %(display:block;width:100%;height:100%;background-color:black;background-x:center;background-y:center;)
     assert_equal expected, sanitize_css(raw)
   end
